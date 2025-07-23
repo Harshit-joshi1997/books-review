@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+.App{
+  background-color: rgb(196, 165, 223);
+  padding: 60px;
+  border-radius: 10px;
+  box-shadow: 0 6px 8px rgba(59, 58, 58, 0.1);
+  max-width: 800px;
+  }
