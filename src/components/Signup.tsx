@@ -43,19 +43,6 @@ function ModeToggle() {
 }
 
 export default function SignUp(props:any) {
-   
- 
-  
-  const handleSubmit = async () => {
-    try {
-      const res = await axios.post('/api/signup', { email, password });
-      if (res.data.success) {
-        router.push('/home-page');
-      }
-    } catch (err: any) {
-      setError(err.response?.data?.error ?? 'Signup failed');
-    }
-  };
   return (
     <main>
       <CssVarsProvider {...props}>
@@ -65,8 +52,8 @@ export default function SignUp(props:any) {
             width: 300,
             mx: 65, 
             my: 4, 
-            py: 3, 
-            px: 2, 
+            py: 3, // padding top & bottom
+            px: 2, // padding left & right
             display: 'flex',
             flexDirection: 'column',
             gap: 2,
@@ -106,7 +93,7 @@ export default function SignUp(props:any) {
             />
           </FormControl>
              <Link href="/home-page" passHref>
-      <Button component="a" sx={{ mt: 1 ,mx:12}} onClick={handleSubmit}>
+      <Button component="a" sx={{ mt: 1 ,mx:12}}>
         Submit
       </Button>
       </Link>
