@@ -1,13 +1,108 @@
+import * as React from 'react';
+import { CssVarsProvider, useColorScheme } from '@mui/joy/styles';
+import Box from '@mui/joy/Box';
+import Sheet from '@mui/joy/Sheet';
+import CssBaseline from '@mui/joy/CssBaseline';
+import Typography from '@mui/joy/Typography';
+import FormControl from '@mui/joy/FormControl';
+import FormLabel from '@mui/joy/FormLabel';
+import Input from '@mui/joy/Input';
+import Button from '@mui/joy/Button';
+import  Link  from 'next/link';
+import Select from '@mui/joy/Select';
+import Option from '@mui/joy/Option';
+ // Ensure you have this file for global styles
 
 
+function ModeToggle() {
+  const { mode, setMode } = useColorScheme();
+  const [mounted, setMounted] = React.useState(false);
 
-function SignUp() {
+ 
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+  if (!mounted) {
+    return <Button variant="soft">Change mode</Button>;
+  }
+
   return (
-    <div>
-      <h1>Sign Up Page</h1>
-      {/* Your sign-up form elements go here */}
-    </div>
+    <Select
+      variant="soft"
+      value={mode}
+      onChange={(event, newMode) => {
+        setMode(newMode);
+      }}
+      sx={{ width: 'max-content' }}
+    >
+      <Option value="system">System</Option>
+      <Option value="light">Light</Option>
+      <Option value="dark">Dark</Option>
+    </Select>
   );
 }
 
-export default SignUp;
+export default function SignUp(props:any) {
+  return (
+    <main>
+      <CssVarsProvider {...props}>
+        <CssBaseline />
+        <Sheet
+          sx={{
+            width: 300,
+            mx: 'auto', // margin left & right
+            my: 4, // margin top & bottom
+            py: 3, // padding top & bottom
+            px: 2, // padding left & right
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+            borderRadius: 'sm',
+            boxShadow: 'md',
+            position: 'relative',
+          }}
+          variant="outlined"
+        >
+          <Box sx={{ position: 'absolute', top: 8, right: 8 }}>
+            <ModeToggle />
+          </Box>
+          <div style={{ textAlign: 'center' }}>
+            <Typography level="h4" component="h1">
+              <b>Signup!</b>
+            </Typography>
+            <Typography level="body-sm">Fill all details</Typography>
+          </div>
+          <FormControl>
+            <FormLabel>Email</FormLabel>
+            <Input
+              // html input attribute
+              name="email"
+              type="email"
+              placeholder="johndoe@email.com"
+            />
+          </FormControl>
+          
+          <FormControl>
+            <FormLabel>Password</FormLabel>
+            <Input
+              // html input attribute
+              name="password"
+              type="password"
+              placeholder="password"
+              autoComplete='current-password'
+            />
+          </FormControl>
+             <Link href="/home-page" passHref>
+      <Button component="a" sx={{ mt: 1 }}>
+        Submit
+      </Button>
+      </Link>
+          <Typography>
+            Welcome to Book Review
+          </Typography>
+        </Sheet>
+      </CssVarsProvider>
+    </main>
+    
+  );
+}

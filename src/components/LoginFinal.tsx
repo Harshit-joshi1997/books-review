@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { CssVarsProvider, useColorScheme } from '@mui/joy/styles';
+import Box from '@mui/joy/Box';
 import Sheet from '@mui/joy/Sheet';
 import CssBaseline from '@mui/joy/CssBaseline';
 import Typography from '@mui/joy/Typography';
@@ -7,10 +8,11 @@ import FormControl from '@mui/joy/FormControl';
 import FormLabel from '@mui/joy/FormLabel';
 import Input from '@mui/joy/Input';
 import Button from '@mui/joy/Button';
-
+import { Link } from 'react-router-dom';
 import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
-import { Link } from 'react-router-dom';
+
+
 
 function ModeToggle() {
   const { mode, setMode } = useColorScheme();
@@ -44,7 +46,6 @@ export default function LoginFinal(props:any) {
   return (
     <main>
       <CssVarsProvider {...props}>
-        <ModeToggle />
         <CssBaseline />
         <Sheet
           sx={{
@@ -58,10 +59,14 @@ export default function LoginFinal(props:any) {
             gap: 2,
             borderRadius: 'sm',
             boxShadow: 'md',
+            position: 'relative',
           }}
           variant="outlined"
         >
-          <div>
+          <Box sx={{ position: 'absolute', top: 8, right: 8 }}>
+            <ModeToggle />
+          </Box>
+          <div style={{ textAlign: 'center' }}>
             <Typography level="h4" component="h1">
               <b>Welcome!</b>
             </Typography>
@@ -76,7 +81,7 @@ export default function LoginFinal(props:any) {
               placeholder="johndoe@email.com"
             />
           </FormControl>
-          <form>
+          
           <FormControl>
             <FormLabel>Password</FormLabel>
             <Input
@@ -87,7 +92,7 @@ export default function LoginFinal(props:any) {
               autoComplete='current-password'
             />
           </FormControl>
-          </form>
+          
           <Button sx={{ mt: 1 /* margin top */ }}>Log in</Button>
           <Typography
             endDecorator={<Link to="/sign-up">Sign up</Link>}
