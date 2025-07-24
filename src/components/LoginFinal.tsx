@@ -50,10 +50,10 @@ export default function LoginFinal(props:any) {
         <Sheet
           sx={{
             width: 300,
-            mx: 'auto', // margin left & right
-            my: 4, // margin top & bottom
-            py: 3, // padding top & bottom
-            px: 2, // padding left & right
+            mx: 65, 
+            my: 4, 
+            py: 3, 
+            px: 2, 
             display: 'flex',
             flexDirection: 'column',
             gap: 2,
@@ -85,7 +85,7 @@ export default function LoginFinal(props:any) {
           <FormControl>
             <FormLabel>Password</FormLabel>
             <Input
-              // html input attribute
+              
               name="password"
               type="password"
               placeholder="password"
