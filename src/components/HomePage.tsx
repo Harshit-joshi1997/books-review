@@ -31,14 +31,13 @@ const HomePage = () => {
     () => (authorFilter === 'all' ? BOOKS : BOOKS.filter(b => b.author === authorFilter)),
     [authorFilter]
   );
-      const [reviews, setReviews] = useState<{ [key: number]: number }>(
-    BOOKS.reduce((acc, b) => ({ ...acc, [b.id]: b.rating }), {})
-      );
-      const handleRatingChange = (bookId: number, value: number | null) => {
+  const [reviews, setReviews] = useState<{ [key: number]: number | null }>({});
+
+  const handleRatingChange = (bookId: number, value: number | null) => {
     if (value !== null) {
       setReviews(prev => ({ ...prev, [bookId]: value }));
-    }}
-      
+    }
+  };
   return (
     <div style={{ backgroundColor: '#f1f5f7ff', minHeight: '100vh', padding: '20px' , width:'100%'  }}>
     <Box sx={{ p: 4, bgColor: '#213e49ff' }}>
@@ -83,15 +82,10 @@ const HomePage = () => {
                  <Box sx={{ mt: 2 }}>
                   <Rating
                     name={`rating-${book.id}`}
-                    value={reviews[book.id]}
+                    value={reviews[book.id] || null}
                     precision={0.5}
-                    onChange={(_, newValue) =>
-                      handleRatingChange(book.id, newValue)
-                    }
+                    onChange={(_, newValue) => handleRatingChange(book.id, newValue)}
                   />
-                  <Typography variant="body2" color="textSecondary">
-                    {reviews[book.id]} ratings
-                  </Typography>
                 </Box>
               </CardContent>
             </Card>
