@@ -56,7 +56,6 @@ const HomePage = () => {
         </Select>
       </FormControl>
       
-
       <Grid container spacing={4}>
         {filtered.map(book => (
           <Grid item key={book.id} xs={12} sm={6} md={4}>

@@ -1,32 +1,59 @@
 import express from 'express';
 import cors from 'cors';
-import mongoose from 'mongoose'; // if you're using it
 import connectDB from './db/db.js'; // if you have a db.js file
+import {User} from './models/user.models.js'
+import bodyParser from 'body-parser'
+
 
 const app = express();
+const port = 8000;
 
 // ✅ CORS Middleware Setup
-app.use(cors({
-  origin: 'http://localhost:5173', // your frontend URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true,
-}));
+app.use(cors()); 
+
+
 
 // Middleware to parse JSON
-app.use(express.json());
+app.use(bodyParser.json());
+
+const createUser = async (obj)=>{
+  let response;  
+  try {
+       response = await User.create(obj);
+       console.log('Repo: User created:', response);
+    } catch (error) {
+      console.error('Repo: Error creating user:', error);
+    }
+
+    return response;
+}
 
 // Sample sign-up route
 app.post('/sign-up', async (req, res) => {
-  const { name, email, password } = req.body;
+  const { username, email, password } = req.body;
 
-  // (your DB logic here)
+  try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
+      }
 
-  res.status(201).json({ message: 'User created successfully' });
+    const createdUserObj = await createUser({username, email, password});
+    console.log('User created:', createdUserObj);
+    if(createdUserObj){
+       return res.send(createdUserObj).status(200);
+    }
+
+    return res.status(500).json({ message: 'Internal server error' });
+  } catch (error) {
+    console.error('Error creating user:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
 });
 
 // Connect DB and Start Server
 connectDB().then(() => {
-  app.listen(8000, () => {
-    console.log('🚀 Server running at http://localhost:8000');
+  app.listen(port, () => {
+    console.log('Server is running on port ',port);
   });
 });

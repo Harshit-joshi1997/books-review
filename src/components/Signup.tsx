@@ -1,4 +1,5 @@
 'use client';
+import { useState, useEffect } from 'react';
 import * as React from 'react';
 import { CssVarsProvider, useColorScheme } from '@mui/joy/styles';
 import Box from '@mui/joy/Box';
@@ -13,12 +14,13 @@ import Link from 'next/link';
 import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+
+
 
 function ModeToggle() {
   const { mode, setMode } = useColorScheme();
   const [mounted, setMounted] = React.useState(false);
-
+  
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -26,6 +28,8 @@ function ModeToggle() {
   if (!mounted) {
     return <Button variant="soft">Change mode</Button>;
   }
+
+ 
 
   return (
     <Select
@@ -44,8 +48,10 @@ function ModeToggle() {
 }
 
 export default function SignUp(props: any) {
-  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
-
+  
+  const [formData, setFormData] = useState({ username: '', email: '', password: '' });
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -53,11 +59,38 @@ export default function SignUp(props: any) {
   const handleClick = async () => {
     try {
       const response = await axios.post('http://localhost:8000/sign-up', formData);
-      console.log('✅ Signup success:', response.data);
-      // Optional: Redirect after success
-      // router.push('/home-page');
+      console.log('Signup success:', response.data);
+      
+      
     } catch (error: any) {
-      console.error('❌ Signup failed:', error.response?.data || error.message);
+      console.error('Signup failed:', error.response?.data || error.message);
+    }
+  };
+
+  const validate = () => {
+    const newErrors: typeof errors = {};
+    if (!formData.email) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Invalid email format';
+    }
+
+    if (!formData.password) {
+      newErrors.password = 'Password is required';
+    } else if (formData.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+
+    const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (validate()) {
+      console.log('Submit form:', formData);
+    
     }
   };
 
@@ -91,17 +124,18 @@ export default function SignUp(props: any) {
             <Typography level="body-sm">Fill all details</Typography>
           </div>
           <FormControl>
-            <FormLabel>Username</FormLabel>
+            <FormLabel >Username</FormLabel>
             <Input
-              name="name"
+              name="username"
               type="text"
               placeholder="John Doe"
-              value={formData.name}
+              value={formData.username}
               onChange={handleChange}
             />
+            
           </FormControl>
           <FormControl>
-            <FormLabel>Email</FormLabel>
+            <FormLabel onSubmit={handleSubmit}>Email</FormLabel>
             <Input
               name="email"
               type="email"
@@ -109,9 +143,10 @@ export default function SignUp(props: any) {
               value={formData.email}
               onChange={handleChange}
             />
+            {errors.email && <p style={{ color: 'red' }}>{errors.email}</p>}
           </FormControl>
           <FormControl>
-            <FormLabel>Password</FormLabel>
+            <FormLabel onSubmit={handleSubmit}>Password</FormLabel>
             <Input
               name="password"
               type="password"
@@ -120,9 +155,10 @@ export default function SignUp(props: any) {
               value={formData.password}
               onChange={handleChange}
             />
+            {errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}
           </FormControl>
 
-          <Button sx={{ mt: 1, mx: 12 }} onClick={handleClick}>
+          <Button sx={{ mt: 1, mx: 12 }} onClick={handleClick} href='/home-page'>
             Submit
           </Button>
 
