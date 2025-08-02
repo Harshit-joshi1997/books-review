@@ -1,6 +1,8 @@
 'use client';
 import { useState, useEffect } from 'react';
+
 import * as React from 'react';
+
 import { CssVarsProvider, useColorScheme } from '@mui/joy/styles';
 import Box from '@mui/joy/Box';
 import Sheet from '@mui/joy/Sheet';
@@ -15,6 +17,7 @@ import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
 import axios from 'axios';
 
+  
 
 
 function ModeToggle() {
@@ -52,15 +55,17 @@ export default function SignUp(props: any) {
   const [formData, setFormData] = useState({ username: '', email: '', password: '' });
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
   
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-
+  
   const handleClick = async () => {
+    
     try {
       const response = await axios.post('http://localhost:8000/sign-up', formData);
       console.log('Signup success:', response.data);
-      
+     
       
     } catch (error: any) {
       console.error('Signup failed:', error.response?.data || error.message);
@@ -157,10 +162,11 @@ export default function SignUp(props: any) {
             />
             {errors.password && <p style={{ color: 'red' }}>{errors.password}</p>}
           </FormControl>
-
-          <Button sx={{ mt: 1, mx: 12 }} onClick={handleClick} href='/home-page'>
+           <Link href="/" >
+          <Button sx={{ mt: 1, mx: 12 }} onClick={handleClick} >
             Submit
           </Button>
+          </Link>
 
           <Typography>
             Already have an account?{' '}
