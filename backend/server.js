@@ -2,8 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import connectDB from './db/db.js'; // if you have a db.js file
 import {User} from './models/user.models.js'
+import {Book} from './models/books.model.js'
 import bodyParser from 'body-parser'
-
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 const port = 8000;
@@ -72,7 +74,50 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.post('/books', async (req, res) => {
+  const {title, author, price, published, img } = req.body;
 
+  try {
+    const existingBook = await Book.findOne({ title });
+    if (existingBook) {
+      return res.status(400).json({ message: 'Book already exists' });
+      }
+
+    const createdBookObj = await createBook({title, author, price, published, img});
+    console.log('Book created:', createdBookObj);
+    if (createdBookObj) {
+        return res.status(200).json({ success: true, message: 'Book created successfully' });
+        
+    }
+  } catch (error) {
+    console.error('Error creating book:', error);
+  }
+});
+
+const createBook = async (obj)=>{
+  let response;  
+  try {
+       response = await Book.create(obj);
+       console.log('Repo: Book created:', response);
+    } catch (error) {
+      console.error('Repo: Error creating book:', error);
+    }
+    return response;
+  }
+
+  app.get('/books', async (req, res) => {
+    try{
+      const {author} = req.query.author;
+      const query = author ? { author } : {};
+      const books = await Book.find(query);
+      res.json(books);
+    }catch(error){
+      console.error('Error fetching books:', error);
+     alert('Error fetching books')
+    }
+  })
+      
+    // Use `findOne` to get a single user document.}
 
 // Connect DB and Start Server
 connectDB().then(() => {

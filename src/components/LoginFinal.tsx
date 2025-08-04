@@ -15,7 +15,7 @@ import Button from '@mui/joy/Button';
 import Select from '@mui/joy/Select';
 import Option from '@mui/joy/Option';
 
-// It's a good practice to define the shape of your API responses.
+
 interface LoginResponse {
   success: boolean;
   message: string;
@@ -71,7 +71,7 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
     try {
       // Using the LoginResponse interface makes your code more type-safe.
-      const response = await axios.post<LoginResponse>('http://localhost:8000/login', formData);
+      const response = await axios.post<LoginResponse>('/login', formData);
       const { success, message } = response.data;
 
       if (success) {
@@ -144,7 +144,7 @@ const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
               />
             </FormControl>
             {error && <Typography color="danger" sx={{ mt: 1 }} textAlign="center">{error}</Typography>}
-            <Button type="submit" sx={{ mt: 1 }}>Log in</Button>
+            <Button type="submit" sx={{ mt: 1,ml:12 }}>Log in</Button>
           </form>
           <Typography
             endDecorator={<Link to="/sign-up">Sign up</Link>}

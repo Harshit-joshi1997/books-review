@@ -1,6 +1,7 @@
 'use client';
 import { useState, useMemo } from 'react';
 import { Box, Grid, Card, CardMedia, CardContent, Typography, FormControl, InputLabel, Select, MenuItem ,Rating} from '@mui/material';
+import BookForm from './BookForm';
 
 
 const BOOKS = [
@@ -89,9 +90,12 @@ const HomePage = () => {
               </CardContent>
             </Card>
           </Grid>
+          
         ))}
+        
       </Grid>
     </Box>
+    <BookForm />
     </div>
   );
 }

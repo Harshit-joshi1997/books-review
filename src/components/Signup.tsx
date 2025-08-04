@@ -63,9 +63,9 @@ export default function SignUp(props: any) {
   const handleClick = async () => {
     
     try {
-      const response = await axios.post('http://localhost:8000/sign-up', formData);
+      const response = await axios.post('/sign-up', formData);
       console.log('Signup success:', response.data);
-     
+      alert('Signup success');
       
     } catch (error: any) {
       console.error('Signup failed:', error.response?.data || error.message);
