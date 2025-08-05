@@ -23,10 +23,8 @@ const BOOKS = [
 ];
 const HomePage = () => {
     const [authorFilter, setAuthorFilter] = useState('all');
-
+    const authors = useMemo(() => ['all', ...new Set(BOOKS.map(b => b.author))], []);
   
-  const authors = useMemo(() => ['all', ...new Set(BOOKS.map(b => b.author))], []);
-
  
   const filtered = useMemo(
     () => (authorFilter === 'all' ? BOOKS : BOOKS.filter(b => b.author === authorFilter)),
@@ -40,8 +38,8 @@ const HomePage = () => {
     }
   };
   return (
-    <div style={{ backgroundColor: '#f1f5f7ff', minHeight: '100vh', padding: '20px' , width:'100%'  }}>
-    <Box sx={{ p: 4, bgColor: '#213e49ff' }}>
+    <div style={{ backgroundColor: '#f8fcfdff', minHeight: '100vh', padding: '20px' , width:'100%'  }}>
+    <Box sx={{ p: 4, bgColor: '#02151dff' }}>
       <FormControl fullWidth sx={{ mb: 4 ,  bgColor: '#410c15ff'}}>
         <InputLabel>Filter by Author</InputLabel>
         <Select
