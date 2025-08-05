@@ -4,8 +4,8 @@ import { useState, useMemo, useEffect } from 'react';
 import { Box, Grid, Card, CardMedia, CardContent, Typography, FormControl, InputLabel, Select, MenuItem ,Rating} from '@mui/material';
 import BookForm from './BookForm';
 
-interface Books {
-  _id?: string;      // or `id?: number` based on your backend
+interface Book {
+  id?: string;      // or `id?: number` based on your backend
   title: string;
   author: string;
   price: number;
