@@ -16,19 +16,19 @@ interface Book {
 
 const BOOKS = [
    
-  {  title: 'Animal Farm', author: 'George Orwell', price: 9.99,published: '1999', img: '/images/animal-farm.jpg' },
-  {  title: 'The Silmarillion', author: 'J.R.R. Tolkien', price: 18.5,published: '2000', img: '/images/silmarillion.jpg' },
-  {  title: 'You Can Win', author: 'Shiv Khera', price: 15.99,published: '1990', img: '/images/Winners.jpg' },
-  {  title: 'On the Calculation of Volume', author: 'Solvej Balle', price: 14.99,published: '1995', img: '/images/calculation-volume.jpg' },
-  {  title: 'Heart Lamp', author: 'Banu Mushtaq', price: 14.00,published: '1992', img: '/images/heartlamp.jpg' },
-  {  title: 'Small Boat', author: 'Vincent Delecroix', price: 14.29,published: '1991', img: '/images/smallboat.jpg' },
-  {  title: 'Hunchback', author: 'Saou Ichikawa', price: 15.99,published: '1990', img: '/images/hunchbhak.jpg' },
-  {  title: 'Perfection', author: 'Vincenzo Latronico', price: 12.99,published: '2002', img: '/images/perfection.jpg' },
-  {  title: 'Under the eye of Big Bird', author: 'Hiromi kawakami', price: 14.99,published: '1993', img: '/images/bigbird.jpg' },
-  {  title: 'Eurotrash', author: 'Christian Kracht', price: 44.99,published: '1987', img: '/images/eurotrash.jpg' },
-  {  title: 'On a Womens Madness', author: 'Astried Roemer', price: 24.99,published: '1977', img: '/images/women.jpg' },
-  {  title: 'There is a monster behind the door', author: 'Gaelle beelem', price: 40.99,published: '1967', img: '/images/monster.jpg' },
-  {  title: 'Playground', author: 'Richard Powers', price: 34.21,published: '1967', img: '/images/playground.jpg' },
+  {  author: 'George Orwell' },
+  {  title: 'The Silmarillion' },
+  {  title: 'You Can Win' },
+  {  title: 'On the Calculation of Volume' },
+  {  author: 'Banu Mushtaq' },
+  {  author: 'Vincent Delecroix' },
+  {  author: 'Saou Ichikawa'},
+  {  author: 'Vincenzo Latronico'},
+  {  author: 'Hiromi kawakami'},
+  {  author: 'Christian Kracht'},
+  {  author: 'Astried Roemer' },
+  {  author: 'Gaelle beelem' },
+  {  author: 'Richard Powers'},
 ];
 const HomePage = () => {
     const [authorFilter, setAuthorFilter] = useState('all');
